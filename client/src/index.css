@@ -1,0 +1,37 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "realestate";
+  default: false;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(97.788% 0.004 56.375);
+  --color-base-200: oklch(86% 0.005 56.366);
+  --color-base-300: oklch(87% 0.006 286.286);
+  --color-base-content: oklch(23.574% 0.066 313.189);
+  --color-primary: oklch(88% 0.059 254.128);
+  --color-primary-content: oklch(43% 0.078 188.216);
+  --color-secondary: oklch(91% 0.08 205.041);
+  --color-secondary-content: oklch(45% 0.187 3.815);
+  --color-accent: oklch(74% 0.16 232.661);
+  --color-accent-content: oklch(47% 0.157 37.304);
+  --color-neutral: oklch(55% 0.046 257.417);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(68% 0.169 237.323);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(59% 0.145 163.225);
+  --color-success-content: oklch(26% 0.051 172.552);
+  --color-warning: oklch(68% 0.162 75.834);
+  --color-warning-content: oklch(28% 0.066 53.813);
+  --color-error: oklch(51% 0.222 16.935);
+  --color-error-content: oklch(27% 0.105 12.094);
+  --radius-selector: 1rem;
+  --radius-field: 2rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 2px;
+  --depth: 1;
+  --noise: 0;
+}
