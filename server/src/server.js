@@ -4,6 +4,7 @@ import cors from 'cors';
 import { env } from './utils/env.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import apartmentRouter from './routes/apartment.js';
 export const setupServer = () => {
   const app = express();
 
@@ -16,6 +17,8 @@ export const setupServer = () => {
   app.use(logger);
 
   app.use(express.json());
+
+  app.use('/apartment', apartmentRouter);
 
   app.use('*any', notFoundHandler);
 
