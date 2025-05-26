@@ -7,7 +7,7 @@
   prefersdark: false;
   color-scheme: "light";
   --color-base-100: oklch(97.788% 0.004 56.375);
-  --color-base-200: oklch(86% 0.005 56.366);
+  --color-base-200: oklch(92% 0.003 48.717);
   --color-base-300: oklch(87% 0.006 286.286);
   --color-base-content: oklch(23.574% 0.066 313.189);
   --color-primary: oklch(88% 0.059 254.128);
@@ -34,4 +34,12 @@
   --border: 2px;
   --depth: 1;
   --noise: 0;
+}
+.background-pattern {
+  background: radial-gradient(
+    circle,
+    rgba(11, 0, 62, 0.156) 10%,
+    transparent 10%
+  );
+  background-size: 20px 20px;
 }
