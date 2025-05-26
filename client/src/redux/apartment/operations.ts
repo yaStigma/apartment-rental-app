@@ -1,0 +1,107 @@
+import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import type { Apartment } from '../../types/apartment';
+
+axios.defaults.baseURL = 'https://localhost:3000/';
+
+export const fetchAllApartments = createAsyncThunk<Apartment[], void>(
+  'apartments/fetch',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get('apartment');
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+      return rejectWithValue('Unknown error occurred');
+    }
+  }
+);
+
+export const fetchApartmentById = createAsyncThunk(
+  'apartments/fetchById',
+  async (id: string, { rejectWithValue }) => {
+     try {
+    const { data } = await axios.get(`apartment/${id}`);
+    return data;
+  } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+      return rejectWithValue('Unknown error occurred');
+    }
+  }
+);
+
+export const createApartment = createAsyncThunk(
+  'apartments/create',
+  async (apartmentData: Apartment, { rejectWithValue }) => {
+     try {
+    const {data} = await axios.post('apartment', apartmentData);
+    return data;
+        }   catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+      return rejectWithValue('Unknown error occurred');
+    }
+  }
+);
+
+export const updateApartment = createAsyncThunk(
+  'apartments/update',
+  async (
+    { id, apartmentData }: { id: string; apartmentData: Apartment },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await axios.patch(`apartment/${id}`, apartmentData);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+      return rejectWithValue('Unknown error occurred');
+    }
+  }
+);
+
+export const uploadPhoto = createAsyncThunk(
+  'apartments/uploadPhotos',
+  async (
+    { id, formData }: { id: string; formData: FormData },
+    { rejectWithValue }
+  ) => {
+    try {
+      const { data } = await axios.patch(`apartment/${id}/photos`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+      return rejectWithValue('Unknown error occurred');
+    }
+  }
+);
+
+
+
+export const deleteApartment = createAsyncThunk(
+  'apartments/delete',
+  async (id: string, { rejectWithValue }) => {
+    try {
+    await axios.delete(`apartment/${id}`);
+    return id; 
+    }   catch (error) {
+      if (axios.isAxiosError(error)) {
+        return rejectWithValue(error.response?.data || error.message);
+      }
+      return rejectWithValue('Unknown error occurred');
+    }
+  }
+);
