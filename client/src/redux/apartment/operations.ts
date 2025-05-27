@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { Apartment } from '../../types/apartment';
+import type { addApartment, Apartment } from '../../types/apartment';
 
 axios.defaults.baseURL = 'http://localhost:3000/';
 
@@ -37,7 +37,7 @@ export const fetchApartmentById = createAsyncThunk(
 
 export const createApartment = createAsyncThunk(
   'apartments/create',
-  async (apartmentData: Apartment, { rejectWithValue }) => {
+  async (apartmentData: addApartment, { rejectWithValue }) => {
      try {
     const {data} = await axios.post('apartment', apartmentData);
     return data.data;

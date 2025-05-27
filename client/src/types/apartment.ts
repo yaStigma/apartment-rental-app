@@ -12,6 +12,12 @@ title: string;
     createdAt: string;
     updatedAt: string;
     }
-
+export interface addApartment {
+title: string;
+    description: string;
+        price: number;
+   numberOfRooms: number;
+     photos?: File[]; 
+    }
 
 

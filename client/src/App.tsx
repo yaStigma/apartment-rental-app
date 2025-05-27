@@ -1,6 +1,8 @@
 import { Suspense, lazy} from "react";
 import Layout from "./components/Layout";
 import { Route, Routes } from "react-router";
+import { Toaster } from 'react-hot-toast';
+import Loader from "./components/Loader/Loader";
 
 
 const HomePage = lazy(()=> import("./pages/HomePage"))
@@ -11,7 +13,9 @@ const NotFoundPage = lazy(()=> import("./pages/NotFoundPage"))
 
 export default function App() {
   return (
-   <Suspense fallback={<div>Loading...</div>}>
+    <>
+    <Toaster position="top-right"  />
+   <Suspense fallback={<Loader/>}>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
@@ -22,5 +26,6 @@ export default function App() {
       </Route>
     </Routes>
     </Suspense>
+    </>
   )
 };
