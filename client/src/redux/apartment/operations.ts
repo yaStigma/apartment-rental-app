@@ -2,14 +2,15 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { Apartment } from '../../types/apartment';
 
-axios.defaults.baseURL = 'https://localhost:3000/';
+axios.defaults.baseURL = 'http://localhost:3000/';
 
 export const fetchAllApartments = createAsyncThunk<Apartment[], void>(
   'apartments/fetch',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get('apartment');
-      return data;
+      console.log('objects:', data);
+      return data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.response?.data || error.message);
@@ -24,7 +25,7 @@ export const fetchApartmentById = createAsyncThunk(
   async (id: string, { rejectWithValue }) => {
      try {
     const { data } = await axios.get(`apartment/${id}`);
-    return data;
+    return data.data;
   } catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.response?.data || error.message);
@@ -39,7 +40,7 @@ export const createApartment = createAsyncThunk(
   async (apartmentData: Apartment, { rejectWithValue }) => {
      try {
     const {data} = await axios.post('apartment', apartmentData);
-    return data;
+    return data.data;
         }   catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.response?.data || error.message);
@@ -57,7 +58,7 @@ export const updateApartment = createAsyncThunk(
   ) => {
     try {
       const { data } = await axios.patch(`apartment/${id}`, apartmentData);
-      return data;
+      return data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.response?.data || error.message);
@@ -79,7 +80,7 @@ export const uploadPhoto = createAsyncThunk(
           'Content-Type': 'multipart/form-data',
         },
       });
-      return data;
+      return data.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.response?.data || error.message);

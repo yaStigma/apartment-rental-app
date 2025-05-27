@@ -10,7 +10,7 @@ export default function Layout() {
             <div className="flex">
                 <SideBar/>
                 <Suspense fallback={<div>Loading...</div>}>
-                <main className="flex-1 h-[100vh] background-pattern">
+                <main className="flex-1 h-[100vh] background-pattern pt-20">
 <Outlet />
 </main>
 </Suspense>
