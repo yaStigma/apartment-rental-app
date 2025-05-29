@@ -1,5 +1,8 @@
-import { Link } from "react-router"
+import { Link, useLocation } from "react-router"
+import FilterPanel from "./FilterPanel"
 export default function Header() {
+  const location = useLocation()
+  const isApartmentsPage = location.pathname.includes("/apartments")
     return (
 <div className="navbar bg-base-100 shadow-sm fixed top-0 z-10">
   <div className="flex-1">
@@ -10,7 +13,7 @@ export default function Header() {
 </Link>
   </div>
   <div className="flex gap-2">
-    <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+    {isApartmentsPage &&  <FilterPanel/>}
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">

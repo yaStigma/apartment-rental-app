@@ -28,3 +28,10 @@ export interface Photo {
   url?: string;
   uploadedAt?: string;
 }
+
+export interface ApartmentFilters  {
+  sortOrder?: 'asc' | 'desc';
+  priceMin?: number;
+  priceMax?: number;
+  numberOfRooms?: number;
+};

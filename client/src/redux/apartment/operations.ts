@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { addApartment, Apartment } from '../../types/apartment';
+import type { addApartment, Apartment, ApartmentFilters } from '../../types/apartment';
 
 axios.defaults.baseURL = 'http://localhost:3000/';
 
-export const fetchAllApartments = createAsyncThunk<Apartment[], void>(
+export const fetchAllApartments = createAsyncThunk<Apartment[], ApartmentFilters>(
   'apartments/fetch',
-  async (_, { rejectWithValue }) => {
+  async (params, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get('apartment');
+      const { data } = await axios.get('apartment', {params});
       console.log('objects:', data);
       return data.data;
     } catch (error) {
