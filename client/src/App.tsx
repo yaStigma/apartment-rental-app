@@ -7,7 +7,6 @@ import Loader from "./components/Loader/Loader";
 
 const HomePage = lazy(()=> import("./pages/HomePage"))
 const ApartmentsPage = lazy(()=> import("./pages/ApartmentsPage"))
-const ApartmentIDPage = lazy(()=> import("./pages/ApartmentID"))
 const AddApartmentPage = lazy(()=> import("./pages/AddApartmentPage"))
 const NotFoundPage = lazy(()=> import("./pages/NotFoundPage"))
 
@@ -20,7 +19,6 @@ export default function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="apartments" element={<ApartmentsPage />} />
-        <Route path="apartments/:id" element={<ApartmentIDPage />} />
         <Route path="add-apartment" element={<AddApartmentPage />} />
         <Route path="*" element={<NotFoundPage/>} />
       </Route>

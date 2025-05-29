@@ -53,7 +53,7 @@ export const createApartment = createAsyncThunk(
 export const updateApartment = createAsyncThunk(
   'apartments/update',
   async (
-    { id, apartmentData }: { id: string; apartmentData: Apartment },
+    { id, apartmentData }: { id: string; apartmentData: addApartment },
     { rejectWithValue }
   ) => {
     try {

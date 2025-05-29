@@ -12,6 +12,8 @@ title: string;
     createdAt: string;
     updatedAt: string;
     }
+
+    
 export interface addApartment {
 title: string;
     description: string;

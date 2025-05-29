@@ -31,10 +31,11 @@ const photoObjects = previews.map((url, index) => ({
         className="file-input file-input-bordered file-input-ghost w-full max-w-md"
       />
 
-
+<div className="mt-4">
 {photoObjects.length > 0 && (
         <ImageSlider photos={photoObjects}  />
       )}
+      </div>
     </div>
   );
 }
