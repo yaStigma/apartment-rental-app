@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '@/hooks/reduxHooks';
 import { fetchAllApartments } from '@/redux/apartment/operations';
 import { Search } from 'lucide-react';
+import toast from 'react-hot-toast';
 import type { ApartmentFilters } from '@/types/apartment';
 export default function FilterPanel() {
     const dispatch = useAppDispatch()
@@ -13,10 +14,41 @@ export default function FilterPanel() {
 const handleApply = () => {
     const params: ApartmentFilters = {};
 
-    if (sortOrder) params.sortOrder = sortOrder as 'asc' | 'desc';
-    if (priceMin) params.priceMin = parseInt(priceMin);
-    if (priceMax) params.priceMax = parseInt(priceMax);
-    if (rooms) params.numberOfRooms = parseInt(rooms);
+    if (sortOrder) {
+  params.sortOrder = sortOrder as 'asc' | 'desc';
+}
+let hasInvalid = false;
+const min = parseInt(priceMin);
+  if (!isNaN(min)) {
+    if (min < 0) {
+      toast.error('Minimum price must be ≥ 0');
+      hasInvalid = true;
+    } else {
+      params.priceMin = min;
+    }
+  }
+
+  const max = parseInt(priceMax);
+  if (!isNaN(max)) {
+    if (max < 0) {
+      toast.error('Maximum price must be ≥ 0');
+      hasInvalid = true;
+    } else {
+      params.priceMax = max;
+    }
+  }
+
+  const numRooms = parseInt(rooms);
+  if (!isNaN(numRooms)) {
+    if (numRooms <= 0) {
+      toast.error('Number of rooms must be > 0');
+      hasInvalid = true;
+    } else {
+      params.numberOfRooms = numRooms;
+    }
+  }
+
+  if (hasInvalid) return;
 console.log("params:", params);
     dispatch(fetchAllApartments(params));
   };
@@ -42,10 +74,10 @@ console.log("params:", params);
 <div className="flex">
     
   
-  <input type="number" placeholder="min" className="input input-xs w-20" value={priceMin}
+  <input type="number" min="0" placeholder="min" className="input input-xs w-20" value={priceMin}
             onChange={(e) => setPriceMin(e.target.value)}/>
   -
-  <input type="number" placeholder="max" className="input input-xs w-20"  value={priceMax}
+  <input type="number" min="0" placeholder="max" className="input input-xs w-20"  value={priceMax}
             onChange={(e) => setPriceMax(e.target.value)}/>
 </div>
 </div>
