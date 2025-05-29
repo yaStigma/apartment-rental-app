@@ -8,7 +8,8 @@ import {
 } from '../services/apartment.js';
 import createHttpError from 'http-errors';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
-
+import { parseSortParams } from '../utils/parseSortParams.js';
+import { parseFilterParams } from '../utils/parseFilterParams.js';
 export const createApartmentController = async (req, res, next) => {
   const data = await createApartment({
     ...req.body,
@@ -21,7 +22,16 @@ export const createApartmentController = async (req, res, next) => {
 };
 
 export const getAllApartmentController = async (req, res, next) => {
-  const data = await getAllApartment({});
+  const { sortBy, sortOrder } = parseSortParams(req.query);
+  const { priceMin, priceMax, numberOfRooms } = parseFilterParams(req.query);
+
+  const data = await getAllApartment({
+    sortBy,
+    sortOrder,
+    priceMin,
+    priceMax,
+    numberOfRooms,
+  });
   res.json({
     status: 200,
     massage: 'Successfully found all apartments',

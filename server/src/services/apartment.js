@@ -1,9 +1,29 @@
 import Apartment from '../db/models/apartment.js';
+import { SORT_ORDER } from '../constants/index.js';
 
 export const createApartment = (payload) => Apartment.create(payload);
 
-export const getAllApartment = async () => {
-  const data = await Apartment.find();
+export const getAllApartment = async ({
+  sortOrder = SORT_ORDER.ASC,
+  sortBy = 'createdAt',
+  priceMin,
+  priceMax,
+  numberOfRooms,
+}) => {
+  const filters = {};
+
+  if (priceMin !== undefined || priceMax !== undefined) {
+    filters.price = {};
+    if (priceMin !== undefined) filters.price.$gte = priceMin;
+    if (priceMax !== undefined) filters.price.$lte = priceMax;
+  }
+
+  if (numberOfRooms !== undefined) {
+    filters.numberOfRooms = numberOfRooms;
+  }
+  const data = await Apartment.find(filters)
+    .sort({ [sortBy]: sortOrder })
+    .exec();
   return data;
 };
 

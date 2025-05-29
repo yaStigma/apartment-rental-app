@@ -1,8 +1,13 @@
+import { Link } from "react-router"
 export default function Header() {
     return (
 <div className="navbar bg-base-100 shadow-sm fixed top-0 z-10">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+<Link to="/" className="btn btn-ghost text-xl">
+<span>
+  Apartly<span className="text-neutral font-bold">Space</span>
+  </span>
+</Link>
   </div>
   <div className="flex gap-2">
     <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
@@ -18,12 +23,12 @@ export default function Header() {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li>
-          <a >
+          <Link to="*" >
             Profile
-                      </a>
+                      </Link>
         </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><Link to="*">Settings</Link></li>
+        <li><Link to="*">Logout</Link></li>
       </ul>
     </div>
   </div>
