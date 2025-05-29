@@ -2,8 +2,8 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { addApartment, Apartment, ApartmentFilters } from '../../types/apartment';
 
-axios.defaults.baseURL = 'http://localhost:3000/';
-
+// axios.defaults.baseURL = 'http://localhost:3000/';
+axios.defaults.baseURL = 'https://apartment-rental-app-qu5f.onrender.com/';
 export const fetchAllApartments = createAsyncThunk<Apartment[], ApartmentFilters | undefined>(
   'apartments/fetch',
   async (params, { rejectWithValue }) => {
