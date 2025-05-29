@@ -4,7 +4,7 @@ import type { addApartment, Apartment, ApartmentFilters } from '../../types/apar
 
 axios.defaults.baseURL = 'http://localhost:3000/';
 
-export const fetchAllApartments = createAsyncThunk<Apartment[], ApartmentFilters>(
+export const fetchAllApartments = createAsyncThunk<Apartment[], ApartmentFilters | undefined>(
   'apartments/fetch',
   async (params, { rejectWithValue }) => {
     try {
