@@ -9,11 +9,11 @@ export default function ImageSlider({ photos }: ImageSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handlePrev = () => {
-    setCurrentSlide((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
+    setCurrentSlide(prev => (prev === 0 ? photos.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentSlide((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
+    setCurrentSlide(prev => (prev === photos.length - 1 ? 0 : prev + 1));
   };
 
   return (

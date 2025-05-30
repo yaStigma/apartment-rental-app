@@ -75,7 +75,7 @@ const apartmentSlice = createSlice({
         if (index !== -1) {
           state.apartments[index] = action.payload;
           if (state.selectedApartment?._id === action.payload._id) {
-            state.selectedApartment = action.payload; // Update selected apartment if it matches
+            state.selectedApartment = action.payload;
           }
         }
       })
@@ -95,7 +95,7 @@ const apartmentSlice = createSlice({
         if (index !== -1) {
           state.apartments[index] = action.payload;
           if (state.selectedApartment?._id === action.payload._id) {
-            state.selectedApartment = action.payload; // Update selected apartment if it matches
+            state.selectedApartment = action.payload;
           }
         }
       })

@@ -7,7 +7,11 @@ import type { addApartment, Apartment } from "@/types/apartment";
 
 import ImageUpload from "@/components/ImageUpload";
 import { useAppDispatch } from "@/hooks/reduxHooks";
-import { createApartment, uploadPhoto, updateApartment } from "@/redux/apartment/operations";
+import {
+  createApartment,
+  uploadPhoto,
+  updateApartment,
+} from "@/redux/apartment/operations";
 
 const schema = yup
   .object({
@@ -32,73 +36,74 @@ const schema = yup
   })
   .required();
 type ApartmentFormProps = {
-  apartment?: Apartment; // <- приходить з _id
+  apartment?: Apartment;
   onClose?: () => void;
 };
 
-
-export default function ApartmentForm({ apartment, onClose }: ApartmentFormProps) {
+export default function ApartmentForm({
+  apartment,
+  onClose,
+}: ApartmentFormProps) {
   const dispatch = useAppDispatch();
   const [photos, setPhotos] = useState<File[]>([]);
 
- const {
-  register,
-  handleSubmit,
-  formState: { errors },
-  reset,
-} = useForm<addApartment>({
-  resolver: yupResolver(schema),
-});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<addApartment>({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = async (data: addApartment) => {
-  try {
-   if (apartment?._id) {
-      await dispatch(updateApartment({ id: apartment._id, apartmentData: data })).unwrap();
+    try {
+      if (apartment?._id) {
+        await dispatch(
+          updateApartment({ id: apartment._id, apartmentData: data })
+        ).unwrap();
 
-      // Завантажити нові фото, якщо є
-      if (photos.length > 0) {
-        const formData = new FormData();
-        photos.forEach(photo => formData.append("photos", photo));
-        await dispatch(uploadPhoto({ id: apartment._id, formData }));
+        if (photos.length > 0) {
+          const formData = new FormData();
+          photos.forEach(photo => formData.append("photos", photo));
+          await dispatch(uploadPhoto({ id: apartment._id, formData }));
+        }
+
+        toast.success("Apartment updated!");
+      } else {
+        const newApartment = await dispatch(createApartment(data)).unwrap();
+
+        if (photos.length > 0) {
+          const formData = new FormData();
+          photos.forEach(photo => formData.append("photos", photo));
+          await dispatch(uploadPhoto({ id: newApartment._id, formData }));
+        }
+
+        toast.success("Apartment successfully added!");
       }
 
-      toast.success("Apartment updated!");
-    } else {
-      const newApartment = await dispatch(createApartment(data)).unwrap();
-
-      if (photos.length > 0) {
-        const formData = new FormData();
-        photos.forEach(photo => formData.append("photos", photo));
-        await dispatch(uploadPhoto({ id: newApartment._id, formData }));
-      }
-
-      toast.success("Apartment successfully added!");
+      reset();
+      setPhotos([]);
+      onClose?.();
+    } catch (err) {
+      console.error("Error:", err);
+      toast.error("Something went wrong. Please try again.");
     }
+  };
 
-    reset();
-    setPhotos([]);
-    onClose?.();
-  } catch (err) {
-    console.error("Error:", err);
-    toast.error("Something went wrong. Please try again.");
-  }
-};
-
-useEffect(() => {
-  if (apartment) {
-    reset({
-      title: apartment.title,
-      description: apartment.description,
-      price: apartment.price,
-      numberOfRooms: apartment.numberOfRooms,
-    
-  })}
-}, [apartment, reset]);
+  useEffect(() => {
+    if (apartment) {
+      reset({
+        title: apartment.title,
+        description: apartment.description,
+        price: apartment.price,
+        numberOfRooms: apartment.numberOfRooms,
+      });
+    }
+  }, [apartment, reset]);
 
   return (
     <div className="bg-base-200 p-4 mb-4 rounded-2xl shadow-xl flex gap-4">
-
-
       <div>
         <label className="block mb-1 font-medium">Photo apartment</label>
         <ImageUpload onImagesChange={setPhotos} />
@@ -163,8 +168,8 @@ useEffect(() => {
         </div>
 
         <button type="submit" className="btn btn-primary ">
-  {apartment?._id ? "Update Apartment" : "Add Apartment"}
-</button>
+          {apartment?._id ? "Update Apartment" : "Add Apartment"}
+        </button>
       </form>
     </div>
   );

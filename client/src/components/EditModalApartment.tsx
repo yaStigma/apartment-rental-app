@@ -5,16 +5,22 @@ import { Pencil } from "lucide-react";
 interface EditModalApartmentProps {
   apartment: Apartment;
 }
-export default function EditModalApartment({ apartment }:EditModalApartmentProps) {
-    const [isOpen, setIsOpen] = useState(false);
+export default function EditModalApartment({
+  apartment,
+}: EditModalApartmentProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => setIsOpen(false);
   const handleOpen = () => setIsOpen(true);
-    return(
-       <>
-          <button onClick={handleOpen}  className="btn btn-sm btn-ghost btn-primary" title="Edit">
-      <Pencil size={18} />
-    </button>
+  return (
+    <>
+      <button
+        onClick={handleOpen}
+        className="btn btn-sm btn-ghost btn-primary"
+        title="Edit"
+      >
+        <Pencil size={18} />
+      </button>
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/60 bg-opacity-40 z-50 flex justify-center items-center">
@@ -27,7 +33,6 @@ export default function EditModalApartment({ apartment }:EditModalApartmentProps
             </button>
             <h2 className="text-xl font-bold mb-4">Edit Apartment</h2>
 
-            {/* Передаємо apartment як пропс і callback для закриття */}
             <ApartmentForm apartment={apartment} onClose={handleClose} />
           </div>
         </div>

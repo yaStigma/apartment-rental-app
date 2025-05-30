@@ -1,13 +1,15 @@
 export default function HomePage() {
-    return (
-        <div className="p-6 md:p-10 ">
+  return (
+    <div className="p-6 md:p-10 ">
       <div className="bg-base-200 h-full rounded-2xl shadow-xl  md:p-12">
         <h1 className="text-4xl font-bold text-neutral mb-4">
           Create. Manage. Improve.
         </h1>
 
         <p className="text-lg mb-6">
-          Welcome to the <span className="font-semibold">Property Management Dashboard</span> — everything you need to manage real estate in one place.
+          Welcome to the{" "}
+          <span className="font-semibold">Property Management Dashboard</span> —
+          everything you need to manage real estate in one place.
         </p>
 
         <div className="space-y-3">
@@ -36,6 +38,5 @@ export default function HomePage() {
         </div>
       </div>
     </div>
-    );
-    
-};
+  );
+}
